@@ -11,7 +11,7 @@ import cv2
 class FacialKeypointsDataset(Dataset):
     """Face Landmarks dataset."""
 
-    def __init__(self, csv_file, root_dir, transform=None):
+    def __init__(self, csv_file, root_dir, transform=None): # device, 
         """
         Args:
             csv_file (string): Path to the csv file with annotations.
@@ -22,6 +22,7 @@ class FacialKeypointsDataset(Dataset):
         self.key_pts_frame = pd.read_csv(csv_file)
         self.root_dir = root_dir
         self.transform = transform
+#         self.device = device
 
     def __len__(self):
         return len(self.key_pts_frame)
@@ -42,7 +43,9 @@ class FacialKeypointsDataset(Dataset):
 
         if self.transform:
             sample = self.transform(sample)
-
+        
+#         sample = {k:v.to(self.device) for k,v in sample.items()}
+        
         return sample
     
 
